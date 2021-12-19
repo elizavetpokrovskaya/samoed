@@ -1,0 +1,50 @@
+# from sympy import diff, symbols
+# import math
+
+print("Введите количество величин, у которых надо посчитать погрешность")
+k = int(input())
+B = []
+t = 0
+while t != k:
+    B.append([None])
+    t += 1
+print("Введите измеренные данные")
+print("Последним значением вводите приборную погрешность, если она равна нулю, то вводите ноль")
+for j in range(k):
+    B[j] = [float(m) for m in input().split()]
+print("Введите использующиеся буквы")
+A = [i for i in input().split()]  # буквы, использующиеся в формуле при подсчёте чего-то
+
+'''
+s=input()
+while s!='0':
+    x=symbols('x')
+    print(diff(s, x))
+    s='0'
+    s =input()
+'''
+
+# Тут подсчёт погрешности какого-то одного измерения
+# если 2 и более измерений
+sumkvadr = 0
+for i in range(len(B)):
+    sr = (sum(B[i])-B[i][-1]) / (len(B[i]) - 1)
+    if len(B[i]) >= 3:
+        for f in range(len(B[i]) - 1):
+            sumkvadr = (B[i][f] - sr) ** 2
+            RandErr = 2.8 * ((sumkvadr / (len(B[i]) * len(B[i]) - 1))) ** 0.5
+        InstrErr = B[i][len(B[i]) - 1]
+        TotAbsErr = ((RandErr ** 2 + InstrErr ** 2)) ** 0.5
+        TotRevErr = TotAbsErr / sr
+    else:
+        InstrErr = B[i][len(B[i]) - 1]
+        TotAbsErr = InstrErr
+        TotRevErr = TotAbsErr / sr
+    # print(sr)
+    print(A[i], ":", sr, ";", "TotAbsErr:", TotAbsErr, ";", "TotRevErr:", TotRevErr)
+
+'''
+# Подсчёт погрешности итогого чего-то
+A=[i for i input().split()] # буквы, использующиеся в формуле при подсчёте чего-то
+s=input() # например если p=F/S, то вводить F/S
+'''
