@@ -1,6 +1,10 @@
 # from sympy import diff, symbols
 # import math
 
+import streamlit as st
+import pandas as pd
+import numpy as np
+
 print("Введите количество величин, у которых надо посчитать погрешность")
 k = int(input())
 B = []
